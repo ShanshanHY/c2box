@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2Box WebUI</title>
+    <link rel="icon" href="https://sing-box.sagernet.org/assets/icon.svg" type="image/svg">
+    <link rel="shortcut icon" href="https://sing-box.sagernet.org/assets/icon.svg" type="image/svg">
+    <style>
+        @font-face {
+            font-family:'font';
+            src: url('https://unpkg.com/@fortawesome/fontawesome-free@5.9.0/webfonts/fa-solid-900.woff2') format("woff2");
+        }
+
+        body {
+            background-color: #f0f0f0
+        }
+
+        .center {
+            text-align: center;
+            width: 60%;
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+        }
+
+        .input_div {
+            border-radius: 20px;
+            background-color: #ffffff;
+        }
+
+        .page_title {
+            font-family: "font",sans-serif;
+            color: #444444;
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .input_box {
+            color: #666666;
+            font-family: "font",sans-serif;
+            font-size: 14px;
+            margin: 10px 20px;
+            width: 80%;
+            height: 60px;
+            border-radius: 8px;
+            border-color: #e7e7e7;
+            background-color: #f9f9f9;
+            transition: outline 0.1s ease;
+        }
+
+        .input_box:focus {
+            border-color: #e7e7e7;
+            outline: 2px solid #cccccc;
+        }
+
+        .button {
+            font-family: "font",sans-serif;
+            font-size: 14px;
+            color: #f9f9f9;
+            margin: 10px 5px;
+            width: 40%;
+            height: 40px;
+            border-radius: 8px;
+            border-width:0;
+            background-color: #666666;
+            outline:none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #888888;
+        }
+
+        .button:active {
+            background-color: #555555;
+        }
+
+
+        ::-webkit-input-placeholder {
+            color: #bbbbbb;
+        }
+        :-moz-placeholder{
+            color: #bbbbbb;
+        }
+        ::-moz-placeholder{
+            color: #bbbbbb;
+        }
+        :-ms-input-placeholder{
+            color: #bbbbbb !important;
+        }
+        ::-ms-input-placeholder{
+            color: #bbbbbb;
+        }
+        ::placeholder {
+            color: #bbbbbb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <table>
+            <tr>
+                <h1 class="page_title">C2Box WebUI</h1>
+            </tr>
+            <tr>
+                <div class="input_div">
+                    <form action="./" method="post">
+                        <label for="sub"></label>
+                        <textarea name="sub" id="sub" class="input_box" style="margin-top:40px"
+                                  placeholder="Clash 订阅链接&#10多条订阅请使用&quot;|&quot;分割或换行输入">{{ sub }}</textarea>
+                        <br>
+                        <label for="template"></label>
+                        <textarea name="template" id="template" class="input_box"
+                                  placeholder="SingBox 配置文件模板&#10支持 Url & Json 格式模板粘贴">{{ template }}</textarea>
+                        <br>
+                        <label for="outbound_group"></label>
+                        <textarea name="outbound_group" id="outbound_group" class="input_box"
+                                  placeholder="SingBox 额外出站组&#10请查看使用说明">{{ outbound_group }}</textarea>
+                        <br>
+                        {% if url %}
+                        <hr style="color :#bbbbbb; width: 80%;">
+                        <label>
+                            <textarea readonly class="input_box">{{ url }}</textarea>
+                        </label>
+
+                        <div style="display: flex;justify-content: center; align-items: center;">
+                            <button id="copy" type="button" class="button" style="margin-bottom:40px">复制到剪切板</button>
+                            <script>
+                                document.getElementById('copy').addEventListener('click', function() {
+
+                                    navigator.clipboard.writeText("{{ url | safe }}")
+                                        .then(function() {
+                                            alert('已复制到剪贴板!');
+                                        })
+                                        .catch(function(err) {
+                                            console.error('复制失败: ', err);
+                                        });
+                                });
+                            </script>
+                        {% endif %}
+                            <button type="submit" class="button" style="margin-bottom:40px">生成 SingBox 订阅链接</button>
+                        {% if url %}
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,2 +1,4 @@
 PyYAML
 requests
+json5
+Flask

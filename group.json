@@ -1,0 +1,13 @@
+{
+  "group_name1": {
+    "type": "selector",
+    "outbounds": [
+      "正则表达式",
+      "……"
+    ]
+  },
+  "group_name2": {
+    "type": "urltest",
+    "outbounds": "香港"
+  }
+}
